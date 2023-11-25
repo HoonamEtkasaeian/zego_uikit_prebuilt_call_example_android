@@ -25,3 +25,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+dependencies {
+    ...
+    implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_call_android:1.4.0'    // Add this line to your module-level build.gradle file's dependencies, usually named [app].
+    implementation 'com.github.ZEGOCLOUD:zego_uikit_signaling_plugin_android:1.4.0'  // Add this line to your module-level build.gradle file's dependencies, usually named [app].
+    implementation platform('com.google.firebase:firebase-bom:29.3.1') // Add this line to your module-level build.gradle file's dependencies，Import the Firebase BoM。
+}
