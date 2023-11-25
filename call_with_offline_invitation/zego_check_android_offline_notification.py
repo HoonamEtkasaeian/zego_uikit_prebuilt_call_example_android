@@ -1,4 +1,4 @@
-import os
+hiimport os
 import json
 import xml.etree.ElementTree as ET
 
@@ -83,3 +83,41 @@ class AndroidConfigChecker:
 if __name__ == "__main__":
     android_checker = AndroidConfigChecker()
     android_checker.start_check()
+    public class MainActivity extends AppCompatActivity {
+    long appID = YourAppID;
+    String appSign = YourAppSign;
+    String userID = "userID";
+    String userName = "userName";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initSendCallInvitationButton();
+        initCallInviteService();
+    }
+
+    public void initCallInviteService() {
+      ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig(ZegoSignalingPlugin.getInstance());
+      //Change notifyWhenAppRunningInBackgroundOrQuit to false if you don't need to receive a call invitation notification while your app running in the background or quit.
+      callInvitationConfig.notifyWhenAppRunningInBackgroundOrQuit = true;
+      //This property needs to be set when you are building an Android app and when the notifyWhenAppRunningInBackgroundOrQuit is true. notificationConfig.channelID must be the same as the FCM Channel ID in ZEGOCLOUD Admin Console, and the notificationConfig.channelName can be an arbitrary value. The notificationConfig.soundmust be the same as the FCM sound in Admin Console either.
+      ZegoNotificationConfig notificationConfig = new ZegoNotificationConfig();
+      notificationConfig.sound = "zego_uikit_sound_call";
+      notificationConfig.channelID = "CallInvitation";
+      notificationConfig.channelName = "CallInvitation";
+      ZegoUIKitPrebuiltCallInvitationService.init(getApplication(), appID, appSign, userID, userName,callInvitationConfig);
+    }
+
+    private void initSendCallInvitationButton(){
+        String targetUserID = ; // The ID of the user you want to call.
+        Context context = ; // Android context.
+
+        ZegoSendCallInvitationButton button = new ZegoSendCallInvitationButton(context);
+        //	If true, a video call is made when the button is pressed. Otherwise, a voice call is made.
+        button.setIsVideoCall(true);
+        //resourceID can be used to specify the ringtone of an offline call invitation, which must be set to the same value as the Push Resource ID in ZEGOCLOUD Admin Console. This only takes effect when the notifyWhenAppRunningInBackgroundOrQuit is true.
+        button.setResourceID("zego_uikit_call");
+        button.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
+    }
+    }
